@@ -1,0 +1,26 @@
+package restAssuredTests;
+
+import java.util.HashMap;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class API2_PostRequest {
+	
+	public static HashMap map=new HashMap();
+	
+	@BeforeClass
+	public void setupParameters() {
+		
+		
+		
+	}
+	
+	@Test
+	public void testPost() {
+		
+		
+		
+	}
+
+}

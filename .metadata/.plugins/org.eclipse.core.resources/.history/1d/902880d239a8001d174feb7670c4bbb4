@@ -1,0 +1,19 @@
+package restAssuredTests;
+
+import org.testng.annotations.Test;
+import io.restassured.matcher.RestAssuredMatchers;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
+
+public class API1_GetRequest_BooksStore {
+	
+	@Test
+	public void getBooksDetails() {
+		
+		given()
+		.when()
+		.get("")
+		
+	}
+
+}

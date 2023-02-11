@@ -1,0 +1,22 @@
+package restAssuredTests;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class API2_PostRequest {
+	
+	@BeforeClass
+	public void setupParameters() {
+		
+		
+		
+	}
+	
+	@Test
+	public void testPost() {
+		
+		
+		
+	}
+
+}

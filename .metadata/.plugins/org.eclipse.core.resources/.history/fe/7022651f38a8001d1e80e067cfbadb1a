@@ -1,0 +1,11 @@
+package restAssuredTests;
+
+public class API1_GetRequest_BooksStore {
+	
+	@Test
+	public void getBooksDetails() {
+		
+		
+	}
+
+}

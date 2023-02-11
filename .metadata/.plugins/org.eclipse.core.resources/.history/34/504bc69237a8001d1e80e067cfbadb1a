@@ -1,0 +1,5 @@
+package restAssuredTests;
+
+public class API1_GetRequest_BooksStore {
+
+}

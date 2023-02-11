@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [TestNG Automation Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Test Sessions(failed)">
+    <parameter name="password" value="Info-123"/>
+    <parameter name="userName" value="sanjeevaiah.sompalli@info-sun.com"/>
+    <parameter name="url" value="https://testing2.riskwatch.com"/>
+    <classes>
+      <class name="com.test.TestNGFeatures">
+        <methods>
+          <include name="loginTest"/>
+          <include name="searchTest"/>
+          <include name="registartionTest"/>
+          <include name="homeTest"/>
+        </methods>
+      </class> <!-- com.test.TestNGFeatures -->
+    </classes>
+  </test> <!-- Test Sessions(failed) -->
+</suite> <!-- Failed suite [TestNG Automation Suite] -->

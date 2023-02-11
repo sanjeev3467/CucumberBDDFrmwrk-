@@ -1,0 +1,57 @@
+package stepDefinitions;
+
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
+
+import com.pages.DashboardPage;
+import com.pages.LoginPage;
+import com.qa.factory.DriverFactory;
+
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+
+public class DashboardSteps {
+	
+	private LoginPage loginpage=new LoginPage(DriverFactory.getDriver());
+	private DashboardPage dp=new DashboardPage(DriverFactory.getDriver());
+	
+	@Given("user should be login")
+	public void user_should_be_login(DataTable dataTable) {
+	    
+		List<Map<String, String>> st1=dataTable.asMaps();
+		String user1=st1.get(0).get("uName");
+		String pwd1=st1.get(1).get("passWord1");
+		System.out.println("User details: "+user1+" and "+pwd1);
+		
+		DriverFactory.getDriver().get("https://testing2.riskwatch.com/platform/login");
+		
+		loginpage.doLogin(user1, pwd1);	
+				
+	}
+
+	@Given("Dashboard button navigation names")
+	public void dashboard_button_navigation_names(DataTable dataTable1) {
+		
+	/*	List<Map<String, String>> exp1=dataTable1.asMaps();
+		
+		for(Map<String, String> er: exp1) {
+			
+			String ep2=er.get(exp1);
+			
+			Assert.assertTrue(ep2.contains(dp.dashBoardListvalues()));
+			
+		}
+		*/
+		
+
+	}
+
+	@Then("Dashboard button count matching")
+	public void dashboard_button_count_matching() {
+
+	}
+
+}

@@ -1,0 +1,35 @@
+package restAssuredTests;
+
+import java.util.HashMap;
+
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+
+public class API3_PutRequest {
+	
+	public static HashMap map=new HashMap();
+	
+	String ename=RestUtils.getempName();
+	String design=RestUtils.getempDesig();
+	
+	@BeforeClass
+	public void PutData() {
+		
+		map.put("name",ename);
+		map.put("job", design);
+		
+		RestAssured.baseURI="https://demoqa.com/BookStore/v1/Books";
+		RestAssured.basePath="/{ISBN}";
+		
+	}
+	
+	@Test
+	public void testPut() {
+		
+		
+		
+	}
+
+}

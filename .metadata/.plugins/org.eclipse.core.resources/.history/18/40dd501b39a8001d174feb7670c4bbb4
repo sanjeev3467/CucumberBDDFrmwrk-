@@ -1,0 +1,13 @@
+package restAssuredTests;
+
+import org.testng.annotations.Test;
+
+public class API1_GetRequest_BooksStore {
+	
+	@Test
+	public void getBooksDetails() {
+		
+		given().when()
+	}
+
+}

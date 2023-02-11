@@ -1,0 +1,14 @@
+package restAssuredTests;
+
+import java.util.HashMap;
+
+public class API3_PutRequest {
+	
+	public static HashMap map=new HashMap();
+	
+	String name=RestUtils.getempName();
+	String design=RestUtils.getempDesig();
+	
+	
+
+}

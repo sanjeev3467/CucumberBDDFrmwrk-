@@ -1,0 +1,163 @@
+package urlsCheck;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+
+
+
+public class URLCheck {
+
+//	public static String URL="https://testing4.riskwatch.com/platform";
+	
+	public static String browName="EDGE";
+	
+	public static WebDriver driver;
+
+	public static void main(String[] args) throws IOException {
+		
+		String path="E://Automation//URLTesting//URLS.xlsx";
+		
+		File file =new File(path);
+		
+		System.out.println("path value is ..."+file);
+		
+		FileInputStream inputStream = new FileInputStream(file);
+		
+		System.out.println("stream value is ..."+inputStream);
+		
+		XSSFWorkbook w1=new XSSFWorkbook(inputStream);
+		System.out.println("book value is ..."+w1);
+		
+		XSSFSheet sh=w1.getSheetAt(0);
+	
+		
+		System.out.println("sheet value is ..."+sh);
+		
+		
+		
+		for(int i=1; i<=6; i++) {
+			
+		XSSFRow row=sh.getRow(i);
+		
+		System.out.println("row value is ..."+row);
+		
+		for(int j=0; j<1;j++) {
+			
+		XSSFCell s1=row.getCell(j);
+		XSSFCell s2=row.getCell(j+1);
+		
+		System.out.println("s1 value is ..."+s1);
+	
+		String str2 = s1.getStringCellValue();
+		
+		
+		System.out.println("str2 is...."+str2);
+		
+				
+		if(browName.equalsIgnoreCase("firefox")) {
+
+            
+	         System.setProperty("webdriver.gecko.driver","E:\\AutomationSoft\\geckodriver.exe");
+		
+	         driver=new FirefoxDriver();
+	
+	       	
+		} else if(browName.equalsIgnoreCase("chrome")) {
+			
+			System.setProperty("webdriver.chrome.driver","E:\\AutomationSoft\\chromedriver.exe");
+			
+			driver=new ChromeDriver();
+			
+							
+		}else if(browName.equalsIgnoreCase("EDGE")) {
+			
+			System.setProperty("webdriver.edge.driver","E:\\AutomationSoft\\msedgedriver.exe");
+			
+			driver=new EdgeDriver();
+			
+								
+		}else if(browName.equalsIgnoreCase("IE")) {
+			
+			System.setProperty("webdriver.ie.driver","E:\\AutomationSoft\\IEDriverServer.exe");
+			
+			driver=new InternetExplorerDriver();
+			
+									
+		} else {
+			
+			
+			System.out.println("Browser not matched");
+		}
+	
+		
+		
+		driver.get(str2);
+		System.out.println("URL Launched Successfully in "+browName+" browser");
+	//	driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		
+		
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        
+		//Thread.sleep(3000);
+				
+//		WebElement uName=driver.findElement(By.id("user-name"));
+	//	WebElement pwd=driver.findElement(By.id("user-password"));
+		
+	   if(driver.findElement(By.id("user-name")).isEnabled() && driver.findElement(By.id("user-password")).isEnabled()) 
+		{
+		
+
+	        System.out.println("Login Page Opened Successfully");
+			
+			String P1="Pass";
+			System.out.println(" Test..."+P1);
+			s1.setCellValue(str2);
+			s2.setCellValue(P1);
+			
+								
+		} else {
+						
+			String F1="Fail";
+			System.out.println(" Test..."+F1);
+			s1.setCellValue(str2);
+			s2.setCellValue(F1);
+			
+					
+		} 
+		
+		FileOutputStream fos =new FileOutputStream(new File(path));
+		w1.write(fos);
+        fos.close();
+		
+		
+		} 
+		
+		driver.quit();
+		
+		}
+		
+		
+				
+		
+		
+	}
+
+	
+}

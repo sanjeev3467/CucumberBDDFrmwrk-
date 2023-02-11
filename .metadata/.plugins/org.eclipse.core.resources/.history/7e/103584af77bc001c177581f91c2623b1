@@ -1,0 +1,245 @@
+package stepDefinitions;
+
+import java.awt.AWTException;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.apache.log4j.spi.Configurator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.edge.EdgeDriver;
+import io.cucumber.java.en.*;
+import junit.framework.Assert;
+import pageObjects.AddCustomerPage;
+import pageObjects.LoginPage;
+import pageObjects.SearchByEmailfromTable;
+
+public class Steps extends BaseClass {
+	
+	public static String mailid="";
+			
+	@Given("User Launch Chrome Browser")
+	public void user_launch_chrome_browser() {
+		
+		System.setProperty("webdriver.edge.driver","E://Automation//Commerce_Cucumber//Drivers//msedgedriver.exe");
+		driver=new EdgeDriver();
+		lp= new LoginPage(driver);
+		
+		logger=Logger.getLogger("commerce_Cucumber");
+		PropertyConfigurator.configure("log4j.properties");
+		
+		logger.info("********** Browser Launched***********");
+		
+	}
+
+	@When("User Opens URL as {string}")
+	public void user_opens_url_as(String URL) {
+		
+		System.out.println("URL is...."+URL);
+		
+		driver.manage().deleteAllCookies();
+		driver.get(URL);
+		
+		logger.info("********** URL Launched***********");
+	
+	}
+	
+
+	@And("User enter Email as {string} and Password as {string}")
+	public void user_enter_email_as_and_password_as(String uname, String pwd1) {
+		
+		lp.setUserName(uname);
+		logger.info("********** UserName Entered***********");
+		lp.setPassword(pwd1);
+		logger.info("********** Password Entered***********");
+
+	}
+
+	@And("Click on Login")
+	public void click_on_login() throws InterruptedException {
+		
+		lp.Login();
+		Thread.sleep(3000);
+
+	}
+
+	@Then("Page Title should be {string}")
+	public void page_title_should_be(String title1) {
+		
+		if(driver.getPageSource().contains("Login was unsuccessful.")) {
+			
+			driver.close();
+			
+			Assert.assertTrue(false);
+			
+						
+		} else {
+			
+			System.out.println("Ttile is ...."+driver.getTitle());
+			
+			Assert.assertEquals(title1, driver.getTitle());
+		}
+		
+	}
+
+	@When("User Click on Log out link")
+	public void user_click_on_log_out_link() throws InterruptedException {
+		
+		Thread.sleep(3000);
+				
+		lp.Logout();
+		
+	}
+
+	@And("Close browser")
+	public void close_browser() throws InterruptedException {
+				
+			Thread.sleep(3000);
+		
+			driver.quit();
+			
+	}
+	
+	//Customers Details Steps
+	
+	@Then("User view Dashboard")
+	public void user_view_dashboard() throws InterruptedException {
+		
+		Thread.sleep(3000);
+	   
+		Assert.assertEquals("Dashboard / nopCommerce administration", driver.getTitle());
+		
+	}
+
+	@When("Click on Customers Menu")
+	public void click_on_customers_menu() throws InterruptedException {
+
+		addcpage=new AddCustomerPage(driver);
+		
+		Thread.sleep(3000);
+		
+		addcpage.Click_CustomerMenu();
+	}
+
+	@When("Click on Customers Menu item")
+	public void click_on_customers_menu_item() throws InterruptedException {
+
+		Thread.sleep(3000);
+		
+		addcpage.Click_CustomerItem();
+		
+	}
+
+	@When("Click on Add New button")
+	public void click_on_add_new_button() throws InterruptedException {
+
+
+		Thread.sleep(3000);
+		
+		addcpage.Click_AddNew();
+		
+		
+	}
+
+	@Then("User Can view add new Customer page")
+	public void user_can_view_add_new_customer_page() throws InterruptedException {
+
+        Thread.sleep(3000);
+		
+		Assert.assertEquals("Add a new customer / nopCommerce administration", driver.getTitle());
+	}
+
+	@When("User enter the Customer Info")
+	public void user_enter_the_customer_info() throws AWTException, InterruptedException {
+	   
+		
+		addcpage.SetEmail(randomstring().concat("@gmail.com"));
+		addcpage.setPassword("admin@123");
+		addcpage.setFirstName("Test1");
+		addcpage.setLastName("Test2");
+		addcpage.Gender();
+		addcpage.setDOB("8/24/1991");
+		addcpage.setCompanyName("Infosun");
+		addcpage.Click_Tax();
+		addcpage.set_AdminCom("Admin Cooments");
+		
+		
+		
+	}
+	
+	
+
+	@When("Click on Save button")
+	public void click_on_save_button() {
+	 
+     	addcpage.click_savebutton();
+	
+	}
+
+	@Then("User can view the Customer Confirmation Message {string}")
+	public void user_can_view_the_customer_confirmation_message(String msg1) {
+	
+		Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("The new customer has been added successfully."));;
+		
+	}
+
+
+	
+	//Search Customer Details with Email
+	
+	@When("Enter Customer Email")
+	public void enter_customer_email() throws InterruptedException {
+		Thread.sleep(3000);
+		
+		searchmail=new SearchByEmailfromTable(driver);
+		searchmail.setEmailID("victoria_victoria@nopCommerce.com");
+		
+		Thread.sleep(3000);
+	}
+	
+	
+	@When("Enter First Name")
+	public void Set_First_Name() throws InterruptedException {
+		
+		Thread.sleep(3000);
+		
+		searchmail=new SearchByEmailfromTable(driver);
+		searchmail.setFirstName("Victoria");
+		
+	}
+	
+	@And("Enter Last Name")
+	public void Set_Last_Name() {
+		
+		searchmail.setLastName("Terces");
+		
+	}
+	
+	@Then("Click on Search button")
+	public void click_on_search_button() throws InterruptedException {
+
+		searchmail.click_Search();
+		
+				
+	}
+	
+	@Then("Name Confirmation")
+	public void Name_Confirm() throws InterruptedException {
+		
+		
+		searchmail.Search_Name("Victoria","Terces");
+		
+	}
+	
+
+	@Then("Email Confirmation")
+	public void email_confirmation() throws InterruptedException {
+
+		Thread.sleep(3000);
+		
+		searchmail.Search_EmailConfirmation("victoria_victoria@nopCommerce.com");
+		
+	}
+
+
+
+}

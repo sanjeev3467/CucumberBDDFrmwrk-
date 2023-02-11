@@ -1,0 +1,23 @@
+Feature: Facility Module features
+
+Background:
+
+   Given Launch Browser
+   When Enter Secure Watch URL as "https://infos1680.riskwatch.com/platform/login"
+   Then Secure Watch Login page Title Confirmation as "SecureWatch"
+   When Enter User Name as "sanjeevaiah.sompalli@info-sun.com" and Passowrd as "Info-123"
+   Then Click on Login button
+   And Dashboard Title Confirmation as "SecureWatch"
+
+Scenario: Create New Region Details
+   
+   When Click on Menu icon
+   Then Click on Facility Module
+   When Click on Region Link
+   Then Click on Add Region button
+   Then Region Title Confirmation as "Add Region"
+   When Enter Region Name as "South Africa7" and Region Description as "South Africa Region"
+   Then Click on Save button
+   And  Region Saved Success Message Confirmation as "Region Saved Successfully"
+   
+   
